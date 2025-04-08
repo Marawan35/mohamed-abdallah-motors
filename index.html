@@ -4,18 +4,21 @@
   <meta charset="UTF-8">
   <title>مدير البيانات</title>
   <style>
+    /* إعدادات عامة */
     body {
       font-family: 'Cairo', sans-serif;
       background: #f9f9f9;
       padding: 20px;
-      max-width: 600px;
+      max-width: 80%; /* عرض 80% من الحجم الأصلي */
       margin: auto;
       direction: rtl;
       color: #333;
     }
+  
     h2 {
       color: #ff0000;
     }
+  
     input {
       width: 100%;
       padding: 10px;
@@ -26,6 +29,7 @@
       background-color: #fff;
       color: #333;
     }
+  
     button {
       background: #ff0000;
       color: white;
@@ -35,52 +39,118 @@
       cursor: pointer;
       font-size: 16px;
     }
+  
     button:hover {
       background: #cc0000;
     }
-    /* تعديل الأيقونات لتكون جنب بعض مع الاسم تحتهم */
+  
+    /* تنسيق الأيقونات */
     .user-icons {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
+      flex-wrap: wrap; /* السماح بلف العناصر في حال كانت الشاشة صغيرة */
       margin-bottom: 20px;
     }
+  
     .user-icon-container {
-      text-align: center; /* محاذاة الاسم أسفل الصورة */
+      text-align: center;
+      margin-bottom: 10px;
     }
+  
     .user-icon {
-      width: 60px;
-      height: 60px;
+      width: 70px; /* جعل الأيقونات أصغر */
+      height: 70px;
       margin: 10px;
-      border-radius: 50%; /* تحويل الصورة إلى دائرة */
-      object-fit: cover; /* التأكد من أن الصورة تملأ الدائرة بشكل مناسب */
+      border-radius: 50%; 
+      object-fit: cover;
       cursor: pointer;
       border: 2px solid #ddd;
       transition: transform 0.3s;
     }
+  
     .user-icon:hover {
       transform: scale(1.1);
     }
+  
     /* إضافة تأثير عند اختيار اليوزر */
     .user-icon.active {
       border: 2px solid #ff0000;
       box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
+  
     .user-name {
       font-size: 14px;
       color: #333;
       margin-top: 5px;
     }
+  
+    /* نموذج الدخول */
     #loginForm {
-      max-width: 400px;
+      max-width: 80%; /* جعل النموذج أصغر */
       margin: auto;
       background: #fff;
       padding: 20px;
       border-radius: 6px;
       border: 1px solid #ddd;
     }
+  
     #errorMessage {
       color: red;
       display: none;
+    }
+  
+    /* تخصيص التنسيق في الشاشات الصغيرة */
+    @media screen and (max-width: 768px) {
+      .user-icon {
+        width: 60px; /* جعل الأيقونات أصغر في الشاشات المتوسطة */
+        height: 60px;
+      }
+  
+      button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+  
+      h2 {
+        font-size: 18px;
+      }
+  
+      .user-name {
+        font-size: 12px;
+      }
+  
+      #loginForm {
+        padding: 15px;
+      }
+    }
+  
+    /* تخصيص التنسيق في الشاشات الصغيرة جدًا */
+    @media screen and (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+  
+      .user-icon {
+        width: 50px; /* جعل الأيقونات أصغر في الشاشات الصغيرة جدًا */
+        height: 50px;
+      }
+  
+      button {
+        font-size: 12px;
+        padding: 7px 10px;
+      }
+  
+      h2 {
+        font-size: 16px;
+      }
+  
+      .user-name {
+        font-size: 10px;
+      }
+  
+      #loginForm {
+        padding: 10px;
+      }
     }
   </style>
 </head>
