@@ -39,21 +39,21 @@ h2 {
 
 .user-icons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  gap: 15px;
+  gap: 10px;
 }
 
 .user-icon-container {
-  flex: 1;
   text-align: center;
+  flex: 1;
   min-width: 80px;
 }
 
 .user-icon {
-  width: 75px;
-  height: 75px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
@@ -72,7 +72,7 @@ h2 {
 }
 
 .user-name {
-  font-size: 15px;
+  font-size: 14px;
   color: #ccc;
   margin-top: 5px;
 }
@@ -130,25 +130,41 @@ button:hover {
   background: #2a2a2a;
   padding: 20px;
   border-radius: 12px;
-  overflow-x: auto;  /* يضيف شريط تمرير أفقي عند الحاجة */
+  overflow-x: auto; /* إضافة شريط تمرير أفقي عند الحاجة */
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 th, td {
-  padding: 12px 15px;
+  padding: 12px;
   text-align: right;
-  word-wrap: break-word;  /* لضمان أن النص الطويل يتكسر */
-  max-width: 200px;       /* تحديد أقصى عرض للخلايا */
+  border: 1px solid #444;
+  word-wrap: break-word;  /* ضمان تكسر النص في الخلايا */
+  max-width: 200px;
   overflow: hidden;
-  text-overflow: ellipsis; /* إضافة ... للنصوص الطويلة التي تتجاوز الحدود */
+  text-overflow: ellipsis; /* إضافة نقاط للقص النص الطويل */
 }
 
 th {
   background-color: #444;
+}
+
+td button {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+td button:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 480px) {
@@ -169,12 +185,12 @@ th {
     padding: 12px;
   }
 
-  table, th, td {
-    font-size: 14px;  /* تقليل حجم الخط في الجداول على الشاشات الصغيرة */
+  table {
+    font-size: 14px;
   }
 
   td {
-    max-width: 150px;  /* تقليل عرض الأعمدة في الأجهزة الصغيرة */
+    max-width: 150px;
   }
 }
 </style>
