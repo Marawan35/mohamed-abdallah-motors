@@ -164,35 +164,44 @@
 </style>
 
 <body>
+  <!-- نافذة التعديل -->
+  <div id="editModal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border:1px solid #ccc; border-radius:10px; z-index:1000;">
+    <h3>✏️ تعديل بيانات العميل</h3>
+    <input type="text" id="editName" placeholder="اسم العميل">
+    <input type="text" id="editPhone" placeholder="رقم الهاتف" disabled>
+    <input type="text" id="editStatus" placeholder="حالته">
+    <button onclick="submitEdit()">💾 حفظ التعديلات</button>
+    <button onclick="closeEditModal()">❌ إلغاء</button>
+  </div>
+
   <div id="loginForm">
     <h2>تسجيل الدخول</h2>
     <div class="user-icons">
       <div class="user-icon-container">
-        <img class="user-icon" src="" alt="مروان" onclick="selectUser('مروان')">
+        <img class="user-icon" src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="مروان" onclick="selectUser('مروان')">
         <div class="user-name">مروان</div>
       </div>
       <div class="user-icon-container">
-        <img class="user-icon" src="" alt="عجيب" onclick="selectUser('عجيب')">
+        <img class="user-icon" src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="عجيب" onclick="selectUser('عجيب')">
         <div class="user-name">عجيب</div>
       </div>
       <div class="user-icon-container">
-        <img class="user-icon" src="" alt="صباحي" onclick="selectUser('صباحي')">
+        <img class="user-icon" src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="صباحي" onclick="selectUser('صباحي')">
         <div class="user-name">صباحي</div>
       </div>
       <div class="user-icon-container">
-        <img class="user-icon" src="" alt="بودا" onclick="selectUser('بودا')">
+        <img class="user-icon" src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="بودا" onclick="selectUser('بودا')">
         <div class="user-name">بودا</div>
       </div>
     </div>
     <input type="password" id="password" placeholder="كلمة المرور">
     <button onclick="login()">دخول</button>
-    <p id="errorMessage">❌ اسم المستخدم أو كلمة المرور غير صحيحة</p>
+    <p id="errorMessage" style="display: none;">❌ اسم المستخدم أو كلمة المرور غير صحيحة</p>
   </div>
 
   <div id="mainContent" style="display: none;">
-    <!-- أزرار الاختيار بين صفحات الإضافة والبحث -->
     <button onclick="showAddData()">➕ إضافة بيانات</button>
-    <button onclick="showSearchData()">🔍 بحث عن بيانات</button>
+    <button onclick="showSearchData(); renderUserData();">🔍 بحث عن بيانات</button>
 
     <div id="addDataSection" style="display: none;">
       <h2>➕ إضافة بيانات</h2>
@@ -229,13 +238,9 @@
 
     function selectUser(user) {
       currentUser = user;
-
-      const icons = document.querySelectorAll('.user-icon');
-      icons.forEach(icon => icon.classList.remove('active'));
-
+      document.querySelectorAll('.user-icon').forEach(icon => icon.classList.remove('active'));
       const selectedIcon = document.querySelector(`.user-icon[onclick="selectUser('${user}')"]`);
       selectedIcon.classList.add('active');
-
       alert(`تم اختيار المستخدم: ${user}`);
     }
 
@@ -243,10 +248,10 @@
       const password = document.getElementById("password").value.trim();
       if (users[currentUser] && users[currentUser] === password) {
         currentSales = currentUser;
-
         document.getElementById("loginForm").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
         document.getElementById("salesInput").value = currentSales;
+        renderUserData();
       } else {
         document.getElementById("errorMessage").style.display = "block";
       }
@@ -255,36 +260,14 @@
     let excelData = [];
     fetch('https://sheetdb.io/api/v1/8gw2yckcnii56')
       .then(res => res.json())
-      .then(data => {
-        excelData = data;
-      });
+      .then(data => excelData = data);
 
     function renderResults(data) {
       const result = document.getElementById("result");
       if (data.length > 0) {
-        let tableHTML = `
-          <table border="1">
-            <thead>
-              <tr>
-                <th>اسم العميل</th>
-                <th>رقم الهاتف</th>
-                <th>السيلز</th>
-                <th>حالته</th>
-                <th>حذف</th>
-              </tr>
-            </thead>
-            <tbody>
-        `;
-        data.forEach((row, index) => {
-          tableHTML += `
-            <tr>
-              <td>${row.الاسم}</td>
-              <td>${row.رقم_الهاتف}</td>
-              <td>${row.السيلز}</td>
-              <td>${row.حالته}</td>
-              <td><button onclick="deleteData(${index})">❌</button></td>
-            </tr>
-          `;
+        let tableHTML = `<table border="1"><thead><tr><th>اسم العميل</th><th>رقم الهاتف</th><th>السيلز</th><th>حالته</th><th>تعديل</th><th>❌</th></tr></thead><tbody>`;
+        data.forEach((row) => {
+          tableHTML += `<tr><td>${row.الاسم}</td><td>${row.رقم_الهاتف}</td><td>${row.السيلز}</td><td>${row.حالته}</td><td><button onclick="openEditModal('${row.الاسم}', '${row.رقم_الهاتف}', '${row.حالته}')">✏️</button></td><td><button onclick="deleteRow('${row.رقم_الهاتف}')">❌</button></td></tr>`;
         });
         tableHTML += '</tbody></table>';
         result.innerHTML = tableHTML;
@@ -293,76 +276,83 @@
       }
     }
 
+    function openEditModal(name, phone, status) {
+      document.getElementById('editName').value = name;
+      document.getElementById('editPhone').value = phone;
+      document.getElementById('editStatus').value = status;
+      document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+
+    function submitEdit() {
+      const name = document.getElementById("editName").value.trim();
+      const phone = document.getElementById("editPhone").value.trim();
+      const status = document.getElementById("editStatus").value.trim();
+
+      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phone}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: { الاسم: name, حالته: status } })
+      })
+      .then(response => response.json())
+      .then(() => {
+        alert("✅ تم التعديل بنجاح!");
+        const row = excelData.find(r => r.رقم_الهاتف === phone);
+        if (row) {
+          row.الاسم = name;
+          row.حالته = status;
+        }
+        renderUserData();
+        closeEditModal();
+      })
+      .catch(error => {
+        console.error("Error updating data:", error);
+        alert("❌ فيه مشكلة في تعديل البيانات");
+      });
+    }
+
     function searchData() {
       const searchValue = document.getElementById("searchInput").value.trim();
       const searchColumn = document.getElementById("searchColumn").value;
-      
       if (!searchValue) return alert("اكتب حاجة ندور عليها 😒");
+      let results = [];
 
-      const results = excelData.filter(row => 
-        row[searchColumn] && row[searchColumn].toLowerCase().includes(searchValue.toLowerCase()) && row['السيلز'] === currentSales
-      );
-
+      if (searchColumn === "") {
+        results = excelData.filter(row =>
+          row['السيلز'] === currentSales && (
+            (row['الاسم'] && row['الاسم'].toLowerCase().includes(searchValue.toLowerCase())) ||
+            (row['رقم_الهاتف'] && row['رقم_الهاتف'].toLowerCase().includes(searchValue.toLowerCase())) ||
+            (row['حالته'] && row['حالته'].toLowerCase().includes(searchValue.toLowerCase()))
+          )
+        );
+      } else {
+        results = excelData.filter(row =>
+          row[searchColumn] &&
+          row[searchColumn].toLowerCase().includes(searchValue.toLowerCase()) &&
+          row['السيلز'] === currentSales
+        );
+      }
       renderResults(results);
-    }
-
-    function deleteData(index) {
-      const clientToDelete = excelData[index];
-      const phoneToDelete = clientToDelete.رقم_الهاتف;
-
-      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phoneToDelete}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('لم يتم حذف العميل من Google Sheets');
-        }
-        return response.json();
-      })
-      .then(() => {
-        alert("✅ العميل تم حذفه من Google Sheets بنجاح!");
-        excelData.splice(index, 1);
-        const filteredData = excelData.filter(row => row['السيلز'] === currentSales);
-        renderResults(filteredData);
-      })
-      .catch(error => {
-        console.error("Error deleting data:", error);
-        alert("❌ فيه مشكلة في حذف العميل من Google Sheets");
-      });
     }
 
     function addData() {
       const name = document.getElementById("nameInput").value.trim();
       const phone = document.getElementById("phoneInput").value.trim();
       const status = document.getElementById("statusInput").value.trim();
-
       if (!name || !phone || !status) return alert("أكمل جميع البيانات!");
-
       fetch('https://sheetdb.io/api/v1/8gw2yckcnii56', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          data: [
-            {
-              الاسم: name,
-              رقم_الهاتف: phone,
-              السيلز: currentSales,
-              حالته: status
-            }
-          ]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [{ الاسم: name, رقم_الهاتف: phone, السيلز: currentSales, حالته: status }] })
       })
       .then(response => response.json())
-      .then(data => {
+      .then(() => {
         alert("✅ البيانات اتضافت بنجاح!");
         excelData.push({ الاسم: name, رقم_الهاتف: phone, السيلز: currentSales, حالته: status });
-        const filteredData = excelData.filter(row => row['السيلز'] === currentSales);
-        renderResults(filteredData);
+        renderUserData();
         document.getElementById("nameInput").value = "";
         document.getElementById("phoneInput").value = "";
         document.getElementById("statusInput").value = "";
@@ -370,6 +360,26 @@
       .catch(error => {
         console.error("Error adding data:", error);
         alert("❌ فيه مشكلة في إضافة البيانات");
+      });
+    }
+
+    function deleteRow(phone) {
+      if (!confirm("هل أنت متأكد أنك عايز تمسح العميل ده؟")) return;
+      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phone}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("✅ العميل اتمسح بنجاح");
+          excelData = excelData.filter(row => row.رقم_الهاتف !== phone);
+          renderUserData();
+        } else {
+          throw new Error("فشل في الحذف");
+        }
+      })
+      .catch(error => {
+        console.error("Error deleting data:", error);
+        alert("❌ فيه مشكلة في حذف العميل");
       });
     }
 
@@ -382,7 +392,13 @@
       document.getElementById("addDataSection").style.display = "none";
       document.getElementById("searchDataSection").style.display = "block";
     }
+
+    function renderUserData() {
+      const filtered = excelData.filter(row => row['السيلز'] === currentSales);
+      renderResults(filtered);
+    }
   </script>
 </body>
+
 
 </html>
