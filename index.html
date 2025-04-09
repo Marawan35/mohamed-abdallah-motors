@@ -7,159 +7,158 @@
 </head>
   <style>
     body {
-  font-family: 'Cairo', sans-serif;
-  background: linear-gradient(to right, #1a1a1a, #333);
-  margin: 0;
-  padding: 0;
-  direction: rtl;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  color: #fff;
-}
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #1a1a1a, #333);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
 
-#loginForm {
-  width: 100%;
-  max-width: 500px;
-  background: #222;
-  padding: 30px 25px;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-  border: 1px solid #444;
-  transition: all 0.3s ease-in-out;
-}
+    #loginForm {
+      width: 100%;
+      max-width: 500px;
+      background: #222;
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+      border: 1px solid #444;
+      transition: all 0.3s ease-in-out;
+    }
 
-h2 {
-  color: #ff4d4d;
-  font-size: 26px;
-  margin-bottom: 20px;
-  text-align: center;
-}
+    h2 {
+      color: #ff4d4d;
+      font-size: 26px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-input,
-select,
-button {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
+    .user-icons {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
 
-input,
-select {
-  border: 1px solid #555;
-  background-color: #333;
-  color: #fff;
-}
+    .user-icon-container {
+      flex: 1;
+      text-align: center;
+      min-width: 80px;
+    }
 
-button {
-  background: linear-gradient(135deg, #ff4d4d, #cc0000);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
-}
+    .user-icon {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #555;
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
 
-button:hover {
-  background: linear-gradient(135deg, #cc0000, #ff4d4d);
-  transform: scale(1.03);
-}
+    .user-icon:hover {
+      transform: scale(1.15) rotate(2deg);
+      border-color: #ff4d4d;
+    }
 
-#errorMessage {
-  color: #ff6666;
-  display: none;
-  margin-bottom: 10px;
-  text-align: center;
-}
+    .user-icon.active {
+      border: 2px solid #ff4d4d;
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+    }
 
-#mainContent {
-  display: none;
-  width: 100%;
-  max-width: 600px;
-  background: #1e1e1e;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
-}
+    .user-name {
+      font-size: 15px;
+      color: #ccc;
+      margin-top: 5px;
+    }
 
-#result {
-  margin-top: 20px;
-  background: #2a2a2a;
-  padding: 20px;
-  border-radius: 12px;
-}
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-#result p {
-  margin: 8px 0;
-  color: #ddd;
-}
+    input,
+    select {
+      border: 1px solid #555;
+      background-color: #333;
+      color: #fff;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed; /* تثبيت حجم الأعمدة */
-  max-height: 400px; /* تحديد أقصى ارتفاع للجدول */
-  overflow-y: auto;  /* إضافة شريط تمرير عمودي عند الحاجة */
-}
+    button {
+      background: linear-gradient(135deg, #ff4d4d, #cc0000);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
 
-th, td {
-  padding: 10px;
-  text-align: right;
-  border: 1px solid #444;
-  font-size: 14px; /* تصغير حجم الخط داخل الجدول */
-  word-wrap: break-word;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis; /* إضافة نقاط للقص النص الطويل */
-}
+    button:hover {
+      background: linear-gradient(135deg, #cc0000, #ff4d4d);
+      transform: scale(1.03);
+    }
 
-th {
-  background-color: #444;
-}
+    #errorMessage {
+      color: #ff6666;
+      display: none;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-td button {
-  background-color: #ff4d4d;
-  border: none;
-  padding: 6px 10px;
-  color: white;
-  cursor: pointer;
-  border-radius: 8px;
-}
+    #mainContent {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    }
 
-td button:hover {
-  background-color: #cc0000;
-  transform: scale(1.05);
-}
+    #result {
+      margin-top: 20px;
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 12px;
+    }
 
-@media screen and (max-width: 480px) {
-  .user-icon {
-    width: 60px;
-    height: 60px;
-  }
-  .user-name {
-    font-size: 13px;
-  }
-  h2 {
-    font-size: 22px;
-  }
-  input,
-  select,
-  button {
-    font-size: 14px;
-    padding: 12px;
+    #result p {
+      margin: 8px 0;
+      color: #ddd;
+    }
+    td {
+    word-wrap: break-word;  /* لضمان عدم تمدد النص في الخلايا */
+    max-width: 200px;       /* تحديد أقصى عرض للخلايا */
   }
 
-  table {
-    font-size: 12px;
-  }
-
-  td {
-    max-width: 150px;
-  }
-}
+    @media screen and (max-width: 480px) {
+      .user-icon {
+        width: 60px;
+        height: 60px;
+      }
+      .user-name {
+        font-size: 13px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      input,
+      select,
+      button {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
 </style>
 
 <body>
