@@ -1,149 +1,167 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مدير البيانات</title>
-  <style>
-   /* إعدادات عامة */
-body {
-  font-family: 'Cairo', sans-serif;
-  background: #f9f9f9;
-  margin: 0;
-  padding: 0;
-  direction: rtl;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-/* نموذج تسجيل الدخول */
-#loginForm {
-  width: 100%;
-  max-width: 500px;
-  background: #fff;
-  padding: 25px 20px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* العنوان */
-h2 {
-  color: #ff0000;
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* الأيقونات */
-.user-icons {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  gap: 10px;
-}
-
-.user-icon-container {
-  flex: 1;
-  text-align: center;
-  min-width: 70px;
-}
-
-.user-icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid #ddd;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-.user-icon:hover {
-  transform: scale(1.1);
-}
-
-.user-icon.active {
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-.user-name {
-  font-size: 14px;
-  color: #333;
-  margin-top: 5px;
-}
-
-/* حقل الإدخال */
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: 1px solid #333;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
-}
-
-/* زر الدخول */
-button {
-  background: #ff0000;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  display: block;
-  margin-top: 10px;
-}
-
-button:hover {
-  background: #cc0000;
-}
-
-/* رسالة الخطأ */
-#errorMessage {
-  color: red;
-  display: none;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-/* شاشات صغيرة */
-@media screen and (max-width: 480px) {
-  #loginForm {
-    padding: 15px;
-  }
-
-  .user-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .user-name {
-    font-size: 12px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 8px 15px;
-  }
-}
-
-  </style>
 </head>
-<body>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #1a1a1a, #333);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
 
+    #loginForm {
+      width: 100%;
+      max-width: 500px;
+      background: #222;
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+      border: 1px solid #444;
+      transition: all 0.3s ease-in-out;
+    }
+
+    h2 {
+      color: #ff4d4d;
+      font-size: 26px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .user-icons {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
+
+    .user-icon-container {
+      flex: 1;
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .user-icon {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #555;
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
+
+    .user-icon:hover {
+      transform: scale(1.15) rotate(2deg);
+      border-color: #ff4d4d;
+    }
+
+    .user-icon.active {
+      border: 2px solid #ff4d4d;
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+    }
+
+    .user-name {
+      font-size: 15px;
+      color: #ccc;
+      margin-top: 5px;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input,
+    select {
+      border: 1px solid #555;
+      background-color: #333;
+      color: #fff;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff4d4d, #cc0000);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #cc0000, #ff4d4d);
+      transform: scale(1.03);
+    }
+
+    #errorMessage {
+      color: #ff6666;
+      display: none;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    #mainContent {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    }
+
+    #result {
+      margin-top: 20px;
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    #result p {
+      margin: 8px 0;
+      color: #ddd;
+    }
+    td {
+    word-wrap: break-word;  /* لضمان عدم تمدد النص في الخلايا */
+    max-width: 200px;       /* تحديد أقصى عرض للخلايا */
+  }
+
+    @media screen and (max-width: 480px) {
+      .user-icon {
+        width: 60px;
+        height: 60px;
+      }
+      .user-name {
+        font-size: 13px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      input,
+      select,
+      button {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+</style>
+
+<body>
   <div id="loginForm">
     <h2>تسجيل الدخول</h2>
     <div class="user-icons">
@@ -170,24 +188,31 @@ button:hover {
   </div>
 
   <div id="mainContent" style="display: none;">
-    <h2>➕ إضافة بيانات</h2>
-    <input type="text" id="nameInput" placeholder="اسم العميل">
-    <input type="text" id="phoneInput" placeholder="رقم الهاتف">
-    <input type="text" id="salesInput" placeholder="السيلز" value="" disabled>
-    <input type="text" id="statusInput" placeholder="حالته">
-    <button onclick="addData()">إضافة</button>
+    <!-- أزرار الاختيار بين صفحات الإضافة والبحث -->
+    <button onclick="showAddData()">➕ إضافة بيانات</button>
+    <button onclick="showSearchData()">🔍 بحث عن بيانات</button>
 
-    <h2>🔍 بحث عن بيانات</h2>
-    <input type="text" id="searchInput" placeholder="اكتب اللي بتدور عليه">
-    <select id="searchColumn">
-      <option value="الاسم">اسم العميل</option>
-      <option value="رقم_الهاتف">رقم الهاتف</option>
-      <option value="السيلز">السيلز</option>
-      <option value="حالته">الحالة</option>
-    </select>
-    <button onclick="searchData()">🔎 بحث</button>
+    <div id="addDataSection" style="display: none;">
+      <h2>➕ إضافة بيانات</h2>
+      <input type="text" id="nameInput" placeholder="اسم العميل">
+      <input type="text" id="phoneInput" placeholder="رقم الهاتف">
+      <input type="text" id="salesInput" placeholder="السيلز" value="" disabled>
+      <input type="text" id="statusInput" placeholder="حالته">
+      <button onclick="addData()">إضافة</button>
+    </div>
 
-    <div id="result"></div>
+    <div id="searchDataSection" style="display: none;">
+      <h2>🔍 بحث عن بيانات</h2>
+      <input type="text" id="searchInput" placeholder="اكتب اللي بتدور عليه">
+      <select id="searchColumn">
+        <option value="الاسم">اسم العميل</option>
+        <option value="رقم_الهاتف">رقم الهاتف</option>
+        <option value="السيلز">السيلز</option>
+        <option value="حالته">الحالة</option>
+      </select>
+      <button onclick="searchData()">🔎 بحث</button>
+      <div id="result"></div>
+    </div>
   </div>
 
   <script>
@@ -203,11 +228,9 @@ button:hover {
     function selectUser(user) {
       currentUser = user;
 
-      // إزالة الكلاس active من جميع الأيقونات
       const icons = document.querySelectorAll('.user-icon');
       icons.forEach(icon => icon.classList.remove('active'));
 
-      // إضافة الكلاس active للأيقونة المحددة
       const selectedIcon = document.querySelector(`.user-icon[onclick="selectUser('${user}')"]`);
       selectedIcon.classList.add('active');
 
@@ -236,11 +259,36 @@ button:hover {
 
     function renderResults(data) {
       const result = document.getElementById("result");
-      result.innerHTML = data.length
-        ? data.map(row => 
-            `<p>اسم العميل: ${row.الاسم} | رقم الهاتف: ${row.رقم_الهاتف} | السيلز: ${row.السيلز} | حالته: ${row.حالته}</p>`
-          ).join("")
-        : "<p>🙁 مفيش حاجة للأسف</p>";
+      if (data.length > 0) {
+        let tableHTML = `
+          <table border="1">
+            <thead>
+              <tr>
+                <th>اسم العميل</th>
+                <th>رقم الهاتف</th>
+                <th>السيلز</th>
+                <th>حالته</th>
+                <th>حذف</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        data.forEach((row, index) => {
+          tableHTML += `
+            <tr>
+              <td>${row.الاسم}</td>
+              <td>${row.رقم_الهاتف}</td>
+              <td>${row.السيلز}</td>
+              <td>${row.حالته}</td>
+              <td><button onclick="deleteData(${index})">❌</button></td>
+            </tr>
+          `;
+        });
+        tableHTML += '</tbody></table>';
+        result.innerHTML = tableHTML;
+      } else {
+        result.innerHTML = "<p>🙁 مفيش حاجة للأسف</p>";
+      }
     }
 
     function searchData() {
@@ -256,50 +304,82 @@ button:hover {
       renderResults(results);
     }
 
-function addData() {
-  const name = document.getElementById("nameInput").value.trim();
-  const phone = document.getElementById("phoneInput").value.trim();
-  const status = document.getElementById("statusInput").value.trim();
+    function deleteData(index) {
+      const clientToDelete = excelData[index];
+      const phoneToDelete = clientToDelete.رقم_الهاتف;
 
-  if (!name || !phone || !status) return alert("أكمل جميع البيانات!");
-
-  fetch('https://sheetdb.io/api/v1/8gw2yckcnii56', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      data: [
-        {
-          الاسم: name,
-          رقم_الهاتف: phone,
-          السيلز: currentSales,  // السيلز بتاع اليوزر الحالي
-          حالته: status
+      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phoneToDelete}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
         }
-      ]
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert("✅ البيانات اتضافت بنجاح!");
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('لم يتم حذف العميل من Google Sheets');
+        }
+        return response.json();
+      })
+      .then(() => {
+        alert("✅ العميل تم حذفه من Google Sheets بنجاح!");
+        excelData.splice(index, 1);
+        const filteredData = excelData.filter(row => row['السيلز'] === currentSales);
+        renderResults(filteredData);
+      })
+      .catch(error => {
+        console.error("Error deleting data:", error);
+        alert("❌ فيه مشكلة في حذف العميل من Google Sheets");
+      });
+    }
 
-    // إضافة البيانات الجديدة للـ excelData الخاصة بالـ client الحالي
-    excelData.push({ الاسم: name, رقم_الهاتف: phone, السيلز: currentSales, حالته: status });
+    function addData() {
+      const name = document.getElementById("nameInput").value.trim();
+      const phone = document.getElementById("phoneInput").value.trim();
+      const status = document.getElementById("statusInput").value.trim();
 
-    // تصفية وعرض البيانات الخاصة بالسيلز الحالي فقط
-    const filteredData = excelData.filter(row => row['السيلز'] === currentSales);
-    renderResults(filteredData);
+      if (!name || !phone || !status) return alert("أكمل جميع البيانات!");
 
-    // إعادة تعيين الحقول
-    document.getElementById("nameInput").value = "";
-    document.getElementById("phoneInput").value = "";
-    document.getElementById("statusInput").value = "";
-  })
-  .catch(error => {
-    console.error("Error adding data:", error);
-    alert("❌ فيه مشكلة في إضافة البيانات");
-  });
-}
+      fetch('https://sheetdb.io/api/v1/8gw2yckcnii56', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          data: [
+            {
+              الاسم: name,
+              رقم_الهاتف: phone,
+              السيلز: currentSales,
+              حالته: status
+            }
+          ]
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("✅ البيانات اتضافت بنجاح!");
+        excelData.push({ الاسم: name, رقم_الهاتف: phone, السيلز: currentSales, حالته: status });
+        const filteredData = excelData.filter(row => row['السيلز'] === currentSales);
+        renderResults(filteredData);
+        document.getElementById("nameInput").value = "";
+        document.getElementById("phoneInput").value = "";
+        document.getElementById("statusInput").value = "";
+      })
+      .catch(error => {
+        console.error("Error adding data:", error);
+        alert("❌ فيه مشكلة في إضافة البيانات");
+      });
+    }
+
+    function showAddData() {
+      document.getElementById("addDataSection").style.display = "block";
+      document.getElementById("searchDataSection").style.display = "none";
+    }
+
+    function showSearchData() {
+      document.getElementById("addDataSection").style.display = "none";
+      document.getElementById("searchDataSection").style.display = "block";
+    }
   </script>
 </body>
 </html>
