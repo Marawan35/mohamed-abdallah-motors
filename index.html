@@ -7,158 +7,176 @@
 </head>
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(to right, #1a1a1a, #333);
-      margin: 0;
-      padding: 0;
-      direction: rtl;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #fff;
-    }
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(to right, #1a1a1a, #333);
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #fff;
+}
 
-    #loginForm {
-      width: 100%;
-      max-width: 500px;
-      background: #222;
-      padding: 30px 25px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-      border: 1px solid #444;
-      transition: all 0.3s ease-in-out;
-    }
+#loginForm {
+  width: 100%;
+  max-width: 500px;
+  background: #222;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+  border: 1px solid #444;
+  transition: all 0.3s ease-in-out;
+}
 
-    h2 {
-      color: #ff4d4d;
-      font-size: 26px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+h2 {
+  color: #ff4d4d;
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-    .user-icons {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      gap: 15px;
-    }
+.user-icons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 15px;
+}
 
-    .user-icon-container {
-      flex: 1;
-      text-align: center;
-      min-width: 80px;
-    }
+.user-icon-container {
+  flex: 1;
+  text-align: center;
+  min-width: 80px;
+}
 
-    .user-icon {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid #555;
-      transition: transform 0.3s ease, border-color 0.3s;
-    }
+.user-icon {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #555;
+  transition: transform 0.3s ease, border-color 0.3s;
+}
 
-    .user-icon:hover {
-      transform: scale(1.15) rotate(2deg);
-      border-color: #ff4d4d;
-    }
+.user-icon:hover {
+  transform: scale(1.15) rotate(2deg);
+  border-color: #ff4d4d;
+}
 
-    .user-icon.active {
-      border: 2px solid #ff4d4d;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
-    }
+.user-icon.active {
+  border: 2px solid #ff4d4d;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
 
-    .user-name {
-      font-size: 15px;
-      color: #ccc;
-      margin-top: 5px;
-    }
+.user-name {
+  font-size: 15px;
+  color: #ccc;
+  margin-top: 5px;
+}
 
-    input,
-    select,
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
+input,
+select,
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
-    input,
-    select {
-      border: 1px solid #555;
-      background-color: #333;
-      color: #fff;
-    }
+input,
+select {
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+}
 
-    button {
-      background: linear-gradient(135deg, #ff4d4d, #cc0000);
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
-    }
+button {
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
 
-    button:hover {
-      background: linear-gradient(135deg, #cc0000, #ff4d4d);
-      transform: scale(1.03);
-    }
+button:hover {
+  background: linear-gradient(135deg, #cc0000, #ff4d4d);
+  transform: scale(1.03);
+}
 
-    #errorMessage {
-      color: #ff6666;
-      display: none;
-      margin-bottom: 10px;
-      text-align: center;
-    }
+#errorMessage {
+  color: #ff6666;
+  display: none;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
-    #mainContent {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
-    }
+#mainContent {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+}
 
-    #result {
-      margin-top: 20px;
-      background: #2a2a2a;
-      padding: 20px;
-      border-radius: 12px;
-    }
+#result {
+  margin-top: 20px;
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;  /* يضيف شريط تمرير أفقي عند الحاجة */
+}
 
-    #result p {
-      margin: 8px 0;
-      color: #ddd;
-    }
-    td {
-    word-wrap: break-word;  /* لضمان عدم تمدد النص في الخلايا */
-    max-width: 180px;       /* تحديد أقصى عرض للخلايا */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: right;
+  word-wrap: break-word;  /* لضمان أن النص الطويل يتكسر */
+  max-width: 200px;       /* تحديد أقصى عرض للخلايا */
+  overflow: hidden;
+  text-overflow: ellipsis; /* إضافة ... للنصوص الطويلة التي تتجاوز الحدود */
+}
+
+th {
+  background-color: #444;
+}
+
+@media screen and (max-width: 480px) {
+  .user-icon {
+    width: 60px;
+    height: 60px;
+  }
+  .user-name {
+    font-size: 13px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  input,
+  select,
+  button {
+    font-size: 14px;
+    padding: 12px;
   }
 
-    @media screen and (max-width: 480px) {
-      .user-icon {
-        width: 60px;
-        height: 60px;
-      }
-      .user-name {
-        font-size: 13px;
-      }
-      h2 {
-        font-size: 22px;
-      }
-      input,
-      select,
-      button {
-        font-size: 14px;
-        padding: 12px;
-      }
-    }
+  table, th, td {
+    font-size: 14px;  /* تقليل حجم الخط في الجداول على الشاشات الصغيرة */
+  }
+
+  td {
+    max-width: 150px;  /* تقليل عرض الأعمدة في الأجهزة الصغيرة */
+  }
+}
 </style>
 
 <body>
