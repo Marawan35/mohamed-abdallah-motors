@@ -5,163 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مدير البيانات</title>
 </head>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(to right, #1a1a1a, #333);
-      margin: 0;
-      padding: 0;
-      direction: rtl;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #fff;
-    }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-    #loginForm {
-      width: 100%;
-      max-width: 500px;
-      background: #222;
-      padding: 30px 25px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-      border: 1px solid #444;
-      transition: all 0.3s ease-in-out;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    h2 {
-      color: #ff4d4d;
-      font-size: 26px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  html, body {
+  overflow-x: hidden;   /* يمنع التمرير الجانبي */
+  overflow-y: auto;     /* يسمح بالتمرير العمودي */
+  margin: 0;
+  padding: 0;
+  height: auto;
+  min-height: 100vh;    /* يضمن إن الصفحة كلها تتشاف */
+}   
 
-    .user-icons {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      gap: 15px;
-    }
+  h2, h3 {
+    color: #ff4d4d;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .user-icon-container {
-      flex: 1;
-      text-align: center;
-      min-width: 80px;
+  #loginForm, #mainContent {
+    width: 100%;
+    max-width: 500px;
+    background: #1a1a1a;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.2);
+    border: 1px solid #333;
+  }
+
+  .user-icons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .user-icon-container {
+    text-align: center;
+  }
+
+  .user-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    cursor: pointer;
+    transition: all 0.3s;
+    object-fit: cover;
+  }
+
+  .user-icon:hover {
+    transform: scale(1.1) rotate(2deg);
+    border-color: #ff4d4d;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+  }
+
+  .user-icon.active {
+    border-color: #ff4d4d;
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+  }
+
+  .user-name {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #bbb;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #444;
+    background: #2c2c2c;
+    color: #fff;
+    transition: all 0.3s;
+  }
+
+  input:focus, select:focus {
+    border-color: #ff4d4d;
+    background-color: #333;
+    outline: none;
+  }
+
+  button {
+    background: linear-gradient(135deg, #ff4d4d, #cc0000);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(255, 77, 77, 0.4);
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #cc0000, #ff4d4d);
+    transform: scale(1.03);
+  }
+
+  #errorMessage {
+    color: #ff6666;
+    text-align: center;
+    display: none;
+  }
+
+  #addDataSection,
+  #searchDataSection {
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+  }
+
+  #result {
+    background: #222;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-x: auto;
+    max-height: 60vh;
+    margin-top: 20px;
+  }
+
+  #result table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  #result th, #result td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: center;
+    color: #eee;
+    background-color: #1f1f1f;
+  }
+
+  #result th {
+    background-color: #2b2b2b;
+    color: #ff4d4d;
+  }
+
+  #editModal {
+    background: #111;
+    color: #fff;
+    padding: 25px;
+    border: 1px solid #444;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    box-shadow: 0 0 25px rgba(255, 77, 77, 0.5);
+    width: 90%;
+    max-width: 400px;
+  }
+
+  @media screen and (max-width: 480px) {
+    #loginForm, #mainContent {
+      padding: 20px;
     }
 
     .user-icon {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid #555;
-      transition: transform 0.3s ease, border-color 0.3s;
-    }
-
-    .user-icon:hover {
-      transform: scale(1.15) rotate(2deg);
-      border-color: #ff4d4d;
-    }
-
-    .user-icon.active {
-      border: 2px solid #ff4d4d;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+      width: 60px;
+      height: 60px;
     }
 
     .user-name {
-      font-size: 15px;
-      color: #ccc;
-      margin-top: 5px;
+      font-size: 13px;
     }
 
-    input,
-    select,
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-
-    input,
-    select {
-      border: 1px solid #555;
-      background-color: #333;
-      color: #fff;
-    }
-
-    button {
-      background: linear-gradient(135deg, #ff4d4d, #cc0000);
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
-    }
-
-    button:hover {
-      background: linear-gradient(135deg, #cc0000, #ff4d4d);
-      transform: scale(1.03);
-    }
-
-    #errorMessage {
-      color: #ff6666;
-      display: none;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    #mainContent {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    input, select, button {
+      padding: 12px;
+      font-size: 14px;
     }
 
     #result {
-  margin-top: 20px;
-  background: #2a2a2a;
-  padding: 20px;
-  border-radius: 12px;
-  max-height: 70vh; /* يحدد الحد الأقصى لارتفاع العنصر */
-  overflow-y: auto; /* إضافة تمرير عمودي إذا كانت المحتويات كبيرة */
-}
-
-    #result p {
-      margin: 8px 0;
-      color: #ddd;
+      max-height: 50vh;
+      font-size: 13px;
     }
-    td {
-    word-wrap: break-word;  /* لضمان عدم تمدد النص في الخلايا */
-    max-width: 200px;       /* تحديد أقصى عرض للخلايا */
+
+    #result td, #result th {
+      padding: 8px;
+    }
   }
-
-    @media screen and (max-width: 480px) {
-      .user-icon {
-        width: 60px;
-        height: 60px;
-      }
-      .user-name {
-        font-size: 13px;
-      }
-      h2 {
-        font-size: 22px;
-      }
-      input,
-      select,
-      button {
-        font-size: 14px;
-        padding: 12px;
-      }
-    }
 </style>
+
+
 
 <body>
   <!-- نافذة التعديل -->
@@ -262,26 +305,54 @@
       .then(res => res.json())
       .then(data => excelData = data);
 
-    function renderResults(data) {
-      const result = document.getElementById("result");
-      if (data.length > 0) {
-        let tableHTML = `<table border="1"><thead><tr><th>اسم العميل</th><th>رقم الهاتف</th><th>السيلز</th><th>حالته</th><th>تعديل</th><th>❌</th></tr></thead><tbody>`;
-        data.forEach((row) => {
-          tableHTML += `<tr><td>${row.الاسم}</td><td>${row.رقم_الهاتف}</td><td>${row.السيلز}</td><td>${row.حالته}</td><td><button onclick="openEditModal('${row.الاسم}', '${row.رقم_الهاتف}', '${row.حالته}')">✏️</button></td><td><button onclick="deleteRow('${row.رقم_الهاتف}')">❌</button></td></tr>`;
-        });
-        tableHTML += '</tbody></table>';
-        result.innerHTML = tableHTML;
-      } else {
-        result.innerHTML = "<p>🙁 مفيش حاجة للأسف</p>";
-      }
-    }
+      function renderResults(data) {
+  const result = document.getElementById("result");
+  if (data.length > 0) {
+    let tableHTML = `<table border="1"><thead><tr><th>اسم العميل</th><th>رقم الهاتف</th><th>السيلز</th><th>حالته</th><th>تعديل</th><th>❌</th></tr></thead><tbody>`;
+    data.forEach((row) => {
+      let statusIcon = `<span style="cursor:pointer;" onclick="showStatusPopup('${row.حالته.replace(/'/g, "\\'")}')">👁️</span>`;
+      tableHTML += `<tr>
+        <td>${row.الاسم}</td>
+        <td>${row.رقم_الهاتف}</td>
+        <td>${row.السيلز}</td>
+        <td>${statusIcon}</td>
+        <td><button onclick="openEditModal('${row.الاسم}', '${row.رقم_الهاتف}', '${row.حالته.replace(/'/g, "\\'")}')">✏️</button></td>
+        <td><button onclick="deleteRow('${row.رقم_الهاتف}')">❌</button></td>
+      </tr>`;
+    });
+    tableHTML += '</tbody></table>';
+    result.innerHTML = tableHTML;
+  } else {
+    result.innerHTML = "<p>🙁 مفيش حاجة للأسف</p>";
+  }
+}
+function showStatusPopup(statusText) {
+  const modal = document.createElement('div');
+  modal.style.position = 'fixed';
+  modal.style.top = '50%';
+  modal.style.left = '50%';
+  modal.style.transform = 'translate(-50%, -50%)';
+  modal.style.background = '#111';
+  modal.style.color = '#fff';
+  modal.style.padding = '20px';
+  modal.style.borderRadius = '12px';
+  modal.style.boxShadow = '0 0 20px rgba(255,255,255,0.2)';
+  modal.style.zIndex = '10000';
+  modal.innerHTML = `
+    <h3>👁️ حالة العميل</h3>
+    <p style="font-size:16px;">${statusText}</p>
+    <button onclick="this.parentElement.remove()" style="margin-top:10px;background:#ff4d4d;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;">تمام</button>
+  `;
+  document.body.appendChild(modal);
+}
 
-    function openEditModal(name, phone, status) {
-      document.getElementById('editName').value = name;
-      document.getElementById('editPhone').value = phone;
-      document.getElementById('editStatus').value = status;
-      document.getElementById('editModal').style.display = 'block';
-    }
+function openEditModal(name, phone, status) {
+  document.getElementById('editName').value = name;
+  document.getElementById('editPhone').value = phone;
+  document.getElementById('editStatus').value = status.replace("🍃", "");  // إزالة الإيموجي عند التعديل
+  document.getElementById('editModal').style.display = 'block';
+}
+
 
     function closeEditModal() {
       document.getElementById('editModal').style.display = 'none';
