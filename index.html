@@ -258,7 +258,7 @@
     }
 
     let excelData = [];
-    fetch('https://sheetdb.io/api/v1/8gw2yckcnii56')
+    fetch('https://sheetdb.io/api/v1/8128olvf6cnfw')
       .then(res => res.json())
       .then(data => excelData = data);
 
@@ -292,7 +292,7 @@
       const phone = document.getElementById("editPhone").value.trim();
       const status = document.getElementById("editStatus").value.trim();
 
-      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phone}`, {
+      fetch(`https://sheetdb.io/api/v1/8128olvf6cnfw/رقم_الهاتف/${phone}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data: { الاسم: name, حالته: status } })
@@ -343,7 +343,7 @@
       const phone = document.getElementById("phoneInput").value.trim();
       const status = document.getElementById("statusInput").value.trim();
       if (!name || !phone || !status) return alert("أكمل جميع البيانات!");
-      fetch('https://sheetdb.io/api/v1/8gw2yckcnii56', {
+      fetch('https://sheetdb.io/api/v1/8128olvf6cnfw', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data: [{ الاسم: name, رقم_الهاتف: phone, السيلز: currentSales, حالته: status }] })
@@ -365,7 +365,7 @@
 
     function deleteRow(phone) {
       if (!confirm("هل أنت متأكد أنك عايز تمسح العميل ده؟")) return;
-      fetch(`https://sheetdb.io/api/v1/8gw2yckcnii56/رقم_الهاتف/${phone}`, {
+      fetch(`https://sheetdb.io/api/v1/8128olvf6cnfw/رقم_الهاتف/${phone}`, {
         method: 'DELETE'
       })
       .then(response => {
